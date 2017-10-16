@@ -1,14 +1,15 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Dashboard from'./Dashboard';
 
 const App = () => (
-  <div className="app">
-    <h1>Hello World!</h1>
-    <p><em>Try chansdfsdfsdfsging thed content of this file to see it change without a full refresh!</em></p>
-  </div>
+	<Router>
+		<Switch>
+			<Route exact path="/" component={Dashboard} />
+		</Switch>
+	</Router>
 );
 
-App.propTypes = {
-
-};
+App.propTypes = {};
 
 export default App;

@@ -1,10 +1,4 @@
 <?php
-  session_start();
-
-  use Respect\Validation\Validator as v;
-
-
-
   // Basic Slim Route
   $app = new \Slim\App([
   	'settings' => [
@@ -42,24 +36,9 @@
     return $capsule;
   };
 
-  // Adding Validation to container
-  $container['validator'] = function($container){
-    return new App\Validation\Validator;
-  };
-
-  // Installing Auth
-  $container['auth'] = function($container){
-    return new \App\Auth\Auth;
-  };
-
-  $app->add(new \App\Middleware\LoggingMiddleware($container));
-
-  // Allow custom validation rules
-  v::with('App\\Validation\\Rules\\');
-
   // Basic Authentication
   $app->add(new \Slim\Middleware\HttpBasicAuthentication([
-    'path' => '/admin',
+    'path' => ['/courses', '/categories'],
     'secure' => false, // Used true on production
     'authenticator' => new \App\Middleware\BasicAuthenticationMiddleware()
   ]));
