@@ -36,6 +36,19 @@
     return $capsule;
   };
 
+  // CORS
+  $app->options('/{routes:.+}', function ($request, $response) {
+    return $response;
+  });
+
+  $app->add(function ($request, $response, $next) {
+    $response = $next($request, $response);
+    return $response
+      ->withHeader('Access-Control-Allow-Origin', '*')
+      ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+      ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  });
+
   // Basic Authentication
   $app->add(new \Slim\Middleware\HttpBasicAuthentication([
     'path' => ['/courses', '/categories'],
@@ -70,4 +83,3 @@
   ]));
 
   require_once(__DIR__ .'/../routes/api.php');
-
