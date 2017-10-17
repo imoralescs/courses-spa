@@ -6,6 +6,9 @@ import { Provider } from 'react-redux';
 import root from './store/reducers';
 import App from './components/App';
 
+// CSS Styling
+require('./scss/main.scss');
+
 const thunkMiddleware = ({ dispatch, getState }) => {
 	return (next) => (action) =>
 		typeof action === 'function' 

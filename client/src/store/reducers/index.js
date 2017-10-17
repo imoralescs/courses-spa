@@ -2,7 +2,9 @@ import { combineReducers } from 'redux';
 
 const initialState = {
   courses: [],
-  categories: []
+  categories: [],
+  isFetching: false,
+  isAuthenticated: localStorage.getItem('id_token') ? true : false
 };
 
 function app(state = initialState, { type, payload = null}) {

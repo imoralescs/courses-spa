@@ -1,6 +1,9 @@
-const path = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+var path = require('path');
+var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var bourbon = require('node-bourbon').includePaths;
+var neat = require('node-neat').includePaths;
+bourbon = bourbon.concat(neat);
 
 const removeEmpty = x => x.filter(y => !!y);
 
@@ -40,6 +43,10 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: ['babel-loader', 'eslint-loader']
+      },
+      {
+        test: /\.scss$/, 
+        loaders: ["style-loader", "css-loader?sourceMap", "sass-loader?sourceMap&includePaths[]=" + bourbon + neat[0] + '&includePaths[]=' + neat[1]]
       }
     ]
   },

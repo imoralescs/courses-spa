@@ -49,24 +49,16 @@
       ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   });
 
-  // Basic Authentication
-  $app->add(new \Slim\Middleware\HttpBasicAuthentication([
-    'path' => ['/courses', '/categories'],
-    'secure' => false, // Used true on production
-    'authenticator' => new \App\Middleware\BasicAuthenticationMiddleware()
-  ]));
-
   // Installing JWT Authentication
   $container['jwt'] = function($container){
     $jwt = new \Firebase\JWT\JWT();
     return $jwt;
   };
 
-  // JWT Authentication
+  // Protect JWT Authentication
   $app->add(new \Slim\Middleware\JwtAuthentication([
-    'path' => ["/getservicebyjwt"],
+    'path' => ["/api"],
     'secure' => false,
-    'passthrough' => ["/getjwttoken"],
     "secret" => "supersecretkeyyoushouldnotcommit",
     "error" => function($request, $response, $arguments){
       $data["status"] = "error";
@@ -75,9 +67,9 @@
     }
   ]));
 
-  // Basic Authentication and JWT
+  // Retrieve JWT Token by Basic Authentication
   $app->add(new \Slim\Middleware\HttpBasicAuthentication([
-    'path' => '/gettoken',
+    'path' => '/token',
     'secure' => false, // Used true on production
     'authenticator' => new \App\Middleware\JWTAuthenticationMiddleware()
   ]));
