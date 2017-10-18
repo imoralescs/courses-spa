@@ -1,7 +1,12 @@
 import React from 'react';
-import {  Switch, Route, Link } from 'react-router-dom';
+import {  Switch, Route, Link, Redirect } from 'react-router-dom';
 
-export default function Dashboard() {
+export default function Dashboard(props) {
+	if(!props.state.app.isAuthenticated) {
+		return(
+			<Redirect to={{pathname: '/'}}/>
+		);
+	}
 	return (
 		<div className="container">
 			<h1>Dashboard</h1>

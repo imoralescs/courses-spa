@@ -33,6 +33,7 @@ function app(state = initialState, { type, payload = null}) {
       return newState;
     }
     case 'TOKEN_EXPIRED': {
+      localStorage.removeItem('course_dashboard_token');
       const newState = Object.assign({},
         state,{
           isAuthenticated: false

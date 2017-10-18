@@ -1,6 +1,20 @@
 import axios from 'axios';
 import * as path from '../../dev.url.js';
 
+// Example or intercept request or response before .then and .catch 
+axios.interceptors.response.use(function (response) {
+  return response;
+}, 
+function (error) {
+  if (error.response && 401 === error.response.status) {
+    //console.log('401');
+    return Promise.reject(error);
+  } 
+  else {
+    return Promise.reject(error);
+  }
+});
+
 function requestLogin(creds) {
   return {
     type: 'LOGIN_REQUEST',
@@ -28,20 +42,13 @@ function loginError(message) {
   };
 }
 
-function tokenExpire() {
-  return {
-    type: 'TOKEN_EXPIRED',
-    isAuthenticated: false
-  };
-}
-
 export function loginUser(creds) {
   return (dispatch) => {
     // We dispatch requestLogin to kickoff the call to the API
     dispatch(requestLogin(creds));
     return axios({
       method:'get',
-      url:`${path.TOKEN_URL_1}`,
+      url:`${path.TOKEN_URL_2}`,
       auth: {
         username : creds.username,
         password : creds.password
@@ -62,24 +69,31 @@ export function loginUser(creds) {
   };
 }
 
+function tokenExpire() {
+  return {
+    type: 'TOKEN_EXPIRED',
+    isAuthenticated: false,
+  };
+}
+
 export function loadCourses() {
   const token = localStorage.getItem('course_dashboard_token');
   const config = {
-    headers: {'Authorization': `Beare ${token}`}
+    headers: {'Authorization': `Bearer ${token}`}
   };
 
   return function(dispatch) {
     dispatch({ type: 'COURSES_REQUEST' });
-    return axios.get(`${path.API_URL_1}courses`, config)
+    return axios.get(`${path.API_URL_2}courses`, config)
       .then((response) => {
         dispatch({ type: 'COURSES_SUCCESS', payload: response});
         return response;
       })
       .catch((error) => {
-        //console.dir(error.response);
-        localStorage.removeItem('course_dashboard_token');
-        tokenExpire();
-        //dispatch({ type: 'COURSES_FAILURE' });
+        if(error.response.status === 401)
+        {
+          dispatch(tokenExpire());
+        }
         return error;
       });
   };
@@ -93,13 +107,16 @@ export function loadCategories() {
 
   return function(dispatch) {
     dispatch({ type: 'CATEGORIES_REQUEST' });
-    return axios.get(`${path.API_URL_1}categories`, config)
+    return axios.get(`${path.API_URL_2}categories`, config)
       .then((response) => {
         dispatch({ type: 'CATEGORIES_SUCCESS', payload: response});
         return response;
       })
       .catch((error) => {
-        dispatch({ type: 'CATEGORIES_FAILURE' });
+        if(error.response.status === 401)
+        {
+          dispatch(tokenExpire());
+        }
         return error;
       });
   };
