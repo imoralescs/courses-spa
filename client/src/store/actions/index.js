@@ -1,50 +1,6 @@
 import axios from 'axios';
 import * as path from '../../dev.url.js';
 
-export function loadCourses(username = 'bob.cooper@gmail.com', password = '123456') {
-  return function(dispatch) {
-    dispatch({ type: 'COURSES_REQUEST' });
-      return axios({
-        method:'get',
-        url:`${path.API_URL_2}courses`,
-        auth: {
-          username,
-          password
-        }
-      })
-      .then((response) => {
-        dispatch({ type: 'COURSES_SUCCESS', payload: response});
-        return response;
-      })
-      .catch((error) => {
-        dispatch({ type: 'COURSES_FAILURE' });
-        return error;
-      });
-  };
-}
-
-export function loadCategories(username = 'bob.cooper@gmail.com', password = '123456') {
-  return function(dispatch) {
-    dispatch({ type: 'CATEGORIES_REQUEST' });
-      return axios({
-        method:'get',
-        url:`${path.API_URL_2}categories`,
-        auth: {
-          username,
-          password
-        }
-      })
-      .then((response) => {
-        dispatch({ type: 'CATEGORIES_SUCCESS', payload: response});
-        return response;
-      })
-      .catch((error) => {
-        dispatch({ type: 'CATEGORIES_FAILURE' });
-        return error;
-      });
-  };
-}
-
 function requestLogin(creds) {
   return {
     type: 'LOGIN_REQUEST',
@@ -62,7 +18,7 @@ function receiveLogin(token) {
     token: token
   };
 }
-/*
+
 function loginError(message) {
   return {
     type: 'LOGIN_FAILURE',
@@ -71,31 +27,80 @@ function loginError(message) {
     message
   };
 }
-*/
+
+function tokenExpire() {
+  return {
+    type: 'TOKEN_EXPIRED',
+    isAuthenticated: false
+  };
+}
+
 export function loginUser(creds) {
   return (dispatch) => {
     // We dispatch requestLogin to kickoff the call to the API
     dispatch(requestLogin(creds));
     return axios({
       method:'get',
-      url:`${path.TOKEN_URL_2}`,
+      url:`${path.TOKEN_URL_1}`,
       auth: {
         username : creds.username,
         password : creds.password
       }
     })
     .then((response) => {
-      if(!response.ok) {
-
-        //dispatch(loginError(user.message));
+      if(!response.status == 201) {
+        dispatch(loginError(response));
       }
       else {
         localStorage.setItem('course_dashboard_token', response.data.token);
-        
+
         // Dispatch the success action
         dispatch(receiveLogin(response.data.token));
       }
     })
     .catch((error) => console.log('Error: ', error));
+  };
+}
+
+export function loadCourses() {
+  const token = localStorage.getItem('course_dashboard_token');
+  const config = {
+    headers: {'Authorization': `Beare ${token}`}
+  };
+
+  return function(dispatch) {
+    dispatch({ type: 'COURSES_REQUEST' });
+    return axios.get(`${path.API_URL_1}courses`, config)
+      .then((response) => {
+        dispatch({ type: 'COURSES_SUCCESS', payload: response});
+        return response;
+      })
+      .catch((error) => {
+        //console.dir(error.response);
+        localStorage.removeItem('course_dashboard_token');
+        tokenExpire();
+        //dispatch({ type: 'COURSES_FAILURE' });
+        return error;
+      });
+  };
+}
+
+export function loadCategories() {
+  const token = localStorage.getItem('course_dashboard_token');
+  const config = {
+    headers: {'Authorization': `Bearer ${token}`}
+  };
+
+  return function(dispatch) {
+    dispatch({ type: 'CATEGORIES_REQUEST' });
+    return axios.get(`${path.API_URL_1}categories`, config)
+      .then((response) => {
+        dispatch({ type: 'CATEGORIES_SUCCESS', payload: response});
+        return response;
+      })
+      .catch((error) => {
+        dispatch({ type: 'CATEGORIES_FAILURE' });
+        return error;
+      });
   };
 }
