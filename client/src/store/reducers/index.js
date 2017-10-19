@@ -4,7 +4,7 @@ const initialState = {
   courses: [],
   categories: [],
   isFetching: false,
-  isAuthenticated: localStorage.getItem('course_dashboard_token') ? true : false
+  isAuthenticated: localStorage.getItem('jwt') ? true : false
 };
 
 function app(state = initialState, { type, payload = null}) {
@@ -33,7 +33,7 @@ function app(state = initialState, { type, payload = null}) {
       return newState;
     }
     case 'TOKEN_EXPIRED': {
-      localStorage.removeItem('course_dashboard_token');
+      localStorage.removeItem('jwt');
       const newState = Object.assign({},
         state,{
           isAuthenticated: false
