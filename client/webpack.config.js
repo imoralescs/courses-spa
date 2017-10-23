@@ -45,6 +45,18 @@ module.exports = {
         loader: ['babel-loader', 'eslint-loader']
       },
       {
+        test: /\.css$/,
+        loader: 'style-loader'
+      },
+      {
+        test: /\.css$/,
+        loader: 'css-loader',
+        query: {
+          modules: true,
+          localIdentName: '[name]__[local]___[hash:base64:5]'
+        }
+      },
+      {
         test: /\.scss$/, 
         loaders: ["style-loader", "css-loader?sourceMap", "sass-loader?sourceMap&includePaths[]=" + bourbon + neat[0] + '&includePaths[]=' + neat[1]]
       }

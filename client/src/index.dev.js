@@ -4,7 +4,7 @@ import { AppContainer } from 'react-hot-loader';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import root from './store/reducers';
-import App from './components/App';
+import App from './containers/App';
 
 // CSS Styling
 require('./scss/main.scss');
@@ -35,5 +35,5 @@ const renderApp = (Component) => {
 renderApp(App);
 
 if (module.hot) {
-	module.hot.accept('./components/App', () => { renderApp(App); });
+	module.hot.accept('./containers/App', () => { renderApp(App); });
 }

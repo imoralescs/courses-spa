@@ -1,4 +1,4 @@
-# Course App - React
+# Course App - React and Redux
 
 ## Eslint Documentation
 - https://github.com/yannickcr/eslint-plugin-react

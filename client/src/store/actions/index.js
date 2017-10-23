@@ -48,7 +48,7 @@ export function loginUser(creds) {
     dispatch(requestLogin(creds));
     return axios({
       method:'get',
-      url:`${path.TOKEN_URL_1}`,
+      url:`${path.TOKEN_URL_2}`,
       auth: {
         username : creds.username,
         password : creds.password
@@ -86,7 +86,7 @@ export function loadCourses() {
 
   return function(dispatch) {
     dispatch({ type: 'COURSES_REQUEST' });
-    return axios.get(`${path.API_URL_1}courses`, config)
+    return axios.get(`${path.API_URL_2}courses`, config)
       .then((response) => {
         dispatch({ type: 'COURSES_SUCCESS', payload: response});
         return response;
@@ -109,7 +109,7 @@ export function loadCourse(id) {
 
   return function(dispatch) {
     dispatch({ type: 'CATEGORIES_REQUEST' });
-    return axios.get(`${path.API_URL_1}courses/${id}`, config)
+    return axios.get(`${path.API_URL_2}courses/${id}`, config)
       .then((response) => {
         dispatch({ type: 'COURSE_SUCCESS', payload: response});
         return response;
@@ -132,7 +132,7 @@ export function loadCategories() {
 
   return function(dispatch) {
     dispatch({ type: 'CATEGORIES_REQUEST' });
-    return axios.get(`${path.API_URL_1}categories`, config)
+    return axios.get(`${path.API_URL_2}categories`, config)
       .then((response) => {
         dispatch({ type: 'CATEGORIES_SUCCESS', payload: response});
         return response;
