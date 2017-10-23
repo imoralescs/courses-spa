@@ -5,7 +5,7 @@ import Dashboard from'./Dashboard';
 
 const App = () => (
 	<Router>
-		<div>
+		<div className="container">
 			<Switch>
 				<Route exact path="/" component={Login}/>
 				<Route path="/admin" component={Dashboard} />

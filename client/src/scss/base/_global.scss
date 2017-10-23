@@ -1,12 +1,21 @@
+@import url('https://fonts.googleapis.com/css?family=Work+Sans:400,600,900');
+
 :root {
   font-size: calc( 12px + (20 - 12) * ((100vw - 400px) / ( 1200 - 400)));
-}
-
-html, body {
+  font-family: 'Work Sans', sans-serif;
   height: 100%;
 }
 
 body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #43cea2; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #43cea2, #185a9d); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #43cea2, #185a9d); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+#root {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -26,3 +35,10 @@ input, textarea {
   appearance: none;
 }
 
+.container {
+  padding: 0 2em;
+  width: 74em;
+      height: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}

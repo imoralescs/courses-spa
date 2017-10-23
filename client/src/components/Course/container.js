@@ -22,8 +22,7 @@ function handlers(WrappedComponent) {
     }
 
     componentDidMount() {
-      this.props.loadCourses();
-      this.props.loadCategories();
+      this.props.loadCourse(this.props.match.params.id);
     }
 
     render() {

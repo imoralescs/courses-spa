@@ -53,7 +53,6 @@ function handlers(WrappedComponent) {
     }
 
     render() {
-      console.log(this.props);
       return (
         <WrappedComponent
           {...this.state}

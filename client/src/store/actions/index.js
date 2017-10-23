@@ -65,7 +65,9 @@ export function loginUser(creds) {
         dispatch(receiveLogin(response.data.token));
       }
     })
-    .catch((error) => console.log('Error: ', error));
+    .catch((error) => {
+      return error;
+    });
   };
 }
 
@@ -87,6 +89,29 @@ export function loadCourses() {
     return axios.get(`${path.API_URL_1}courses`, config)
       .then((response) => {
         dispatch({ type: 'COURSES_SUCCESS', payload: response});
+        return response;
+      })
+      .catch((error) => {
+        if(error.response.status === 401)
+        {
+          dispatch(tokenExpire());
+        }
+        return error;
+      });
+  };
+}
+
+export function loadCourse(id) {
+  const token = localStorage.getItem('jwt');
+  const config = {
+    headers: {'Authorization': `Bearer ${token}`}
+  };
+
+  return function(dispatch) {
+    dispatch({ type: 'CATEGORIES_REQUEST' });
+    return axios.get(`${path.API_URL_1}courses/${id}`, config)
+      .then((response) => {
+        dispatch({ type: 'COURSE_SUCCESS', payload: response});
         return response;
       })
       .catch((error) => {

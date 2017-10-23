@@ -21,11 +21,6 @@ function handlers(WrappedComponent) {
       this.state = {};
     }
 
-    componentDidMount() {
-      this.props.loadCourses();
-      this.props.loadCategories();
-    }
-
     render() {
       return (
         <WrappedComponent

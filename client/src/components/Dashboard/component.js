@@ -1,5 +1,7 @@
 import React from 'react';
 import {  Switch, Route, Link, Redirect } from 'react-router-dom';
+import Courses from '../Courses';
+import Course from '../Course';
 
 export default function Dashboard(props) {
 	if(!props.state.app.isAuthenticated) {
@@ -8,19 +10,13 @@ export default function Dashboard(props) {
 		);
 	}
 	return (
-		<div className="container">
-			<h1>Dashboard</h1>
-			<ul>
+		<div className="dashboard">
+			<ul className="dashboard__nav">
 				<li><Link to="/admin">Home</Link></li>
-				<li><Link to="/admin/courses">Courses</Link></li>
 			</ul>
 			<Switch>
-				<Route exact path="/admin" render={() => (
-					<h3>Home.</h3>
-				)}/>
-				<Route path="/admin/courses" render={() => (
-					<h3>Courses.</h3>
-				)}/>
+				<Route exact path="/admin" component={Courses}/>
+				<Route path="/admin/course/:id" component={Course}/>
 			</Switch>
 		</div>
 	);
