@@ -1,10 +1,11 @@
 import React from 'react';
+import Loading from '../../components/Loading';
 import {  Link } from 'react-router-dom';
 
 export default function Courses(props) {
 	if(props.state.app.courses.length < 1) {
 		return(
-			<p>Loading</p>
+			<Loading />
 		);
 	}
 	return (
@@ -15,7 +16,7 @@ export default function Courses(props) {
           <li className="courses__item" key={course.id}>
             <Link to={'/admin/course/' + course.id}>
               <div className="courses__item-thumbnail">
-                <img className="courses__item-thumbnail-img" src={course.thumbnail_url}/>
+                <img className="courses__item-thumbnail-img" src={course.thumbnail_url + (Math.random() * (900 - 100) + 100)}/>
               </div>
               <div className="courses__item-details">
                 <h2 className="courses__item-title">{course.title}</h2>

@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Work+Sans:400,600,900');
-
 :root {
   font-size: calc( 12px + (20 - 12) * ((100vw - 400px) / ( 1200 - 400)));
   font-family: 'Work Sans', sans-serif;
@@ -36,9 +34,15 @@ input, textarea {
 }
 
 .container {
-  padding: 0 2em;
-  width: 74em;
-      height: 100%;
-  max-width: 100%;
+  padding: 0 .1em;
+  height: 100%;
   margin: 0 auto;
+}
+
+/* Desktop */
+@media (min-width: 1081px) {
+  .container {
+    max-width: 1366px;
+    padding: 0 2em;
+  }
 }

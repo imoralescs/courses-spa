@@ -30,7 +30,8 @@ body {
 
 // Browser Form overwrites
 input, textarea {
-	@include appearance(none);
+	-webkit-appearance: none;
+	appearance: none;
 }
 select {
 	border-radius: 0;

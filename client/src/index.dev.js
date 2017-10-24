@@ -28,7 +28,7 @@ const renderApp = (Component) => {
 				<Component />
 			</AppContainer>
 		</Provider>,
-		document.getElementById('root')
+		document.getElementById('appMountPoint')
 	);
 };
 
