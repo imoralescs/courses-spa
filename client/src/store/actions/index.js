@@ -48,7 +48,7 @@ export function loginUser(creds) {
     dispatch(requestLogin(creds));
     return axios({
       method:'get',
-      url:`${path.TOKEN_URL_2}`,
+      url:`${path.TOKEN_URL_1}`,
       auth: {
         username : creds.username,
         password : creds.password
@@ -85,10 +85,14 @@ export function loadCourses() {
   };
 
   return function(dispatch) {
-    dispatch({ type: 'COURSES_REQUEST' });
-    return axios.get(`${path.API_URL_2}courses`, config)
+    dispatch({ type: 'SERVER_REQUEST' });
+    return axios.get(`${path.API_URL_1}courses`, config)
       .then((response) => {
         dispatch({ type: 'COURSES_SUCCESS', payload: response});
+        return response;
+      })
+      .then((response) => {
+        dispatch({ type: 'SERVER_SUCCESS'});
         return response;
       })
       .catch((error) => {
@@ -108,10 +112,14 @@ export function loadCourse(id) {
   };
 
   return function(dispatch) {
-    dispatch({ type: 'CATEGORIES_REQUEST' });
-    return axios.get(`${path.API_URL_2}courses/${id}`, config)
+    dispatch({ type: 'SERVER_REQUEST' });
+    return axios.get(`${path.API_URL_1}courses/${id}`, config)
       .then((response) => {
         dispatch({ type: 'COURSE_SUCCESS', payload: response});
+        return response;
+      })
+      .then((response) => {
+        dispatch({ type: 'SERVER_SUCCESS'});
         return response;
       })
       .catch((error) => {
@@ -131,10 +139,14 @@ export function loadCategories() {
   };
 
   return function(dispatch) {
-    dispatch({ type: 'CATEGORIES_REQUEST' });
-    return axios.get(`${path.API_URL_2}categories`, config)
+    dispatch({ type: 'SERVER_REQUEST' });
+    return axios.get(`${path.API_URL_1}categories`, config)
       .then((response) => {
         dispatch({ type: 'CATEGORIES_SUCCESS', payload: response});
+        return response;
+      })
+      .then((response) => {
+        dispatch({ type: 'SERVER_SUCCESS'});
         return response;
       })
       .catch((error) => {

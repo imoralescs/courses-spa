@@ -3,7 +3,7 @@ import Loading from '../../components/Loading';
 import {  Link } from 'react-router-dom';
 
 export default function Courses(props) {
-	if(props.state.app.courses.length < 1) {
+	if(props.state.app.isFetching) {
 		return(
 			<Loading />
 		);
@@ -11,7 +11,7 @@ export default function Courses(props) {
 	return (
     <div className="courses">
       <ul className="courses__list">
-      {props.state.app.courses.map((course) => {
+      {props.state.courses.map((course) => {
         return(
           <li className="courses__item" key={course.id}>
             <Link to={'/admin/course/' + course.id}>

@@ -4,7 +4,7 @@ import Courses from '../Courses';
 import Course from '../Course';
 
 export default function Dashboard(props) {
-	if(!props.state.app.isAuthenticated) {
+	if(!props.state.login.isAuthenticated) {
 		return(
 			<Redirect to={{pathname: '/'}}/>
 		);

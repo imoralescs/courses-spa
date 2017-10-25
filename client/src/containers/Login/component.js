@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 
 export default function Dashboard(props) {
-	if(props.state.app.isAuthenticated) {
+	if(props.state.login.isAuthenticated) {
 		return(
 			<Redirect to={{pathname: '/admin'}}/>
 		);
