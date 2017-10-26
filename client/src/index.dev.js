@@ -6,8 +6,8 @@ import { Provider } from 'react-redux';
 import root from './store/reducers';
 import App from './containers/App';
 
-// CSS Styling
-require('./scss/main.scss');
+// CSS Global
+require('./containers/app.css');
 
 const thunkMiddleware = ({ dispatch, getState }) => {
 	return (next) => (action) =>
