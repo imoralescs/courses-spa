@@ -2,6 +2,7 @@ import React from 'react';
 import {  Switch, Route, Link, Redirect } from 'react-router-dom';
 import Courses from '../Courses';
 import Course from '../Course';
+import styles from './dashboard.css';
 
 export default function Dashboard(props) {
 	if(!props.state.login.isAuthenticated) {
@@ -10,8 +11,8 @@ export default function Dashboard(props) {
 		);
 	}
 	return (
-		<div className="dashboard">
-			<ul className="dashboard__nav">
+		<div className={styles.container}>
+			<ul className={styles.nav}>
 				<li><Link to="/admin">Home</Link></li>
 			</ul>
 			<Switch>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import styles from './login.css';
 
 export default function Dashboard(props) {
 	if(props.state.login.isAuthenticated) {
@@ -8,20 +9,20 @@ export default function Dashboard(props) {
 		);
 	}
 	return (
-		<div className="login-form__container">
-			<form className="login-form" onSubmit={props.submitForm}>
-				<div className="login-form__logo">
+		<div className={styles.container}>
+			<form className={styles.loginForm} onSubmit={props.submitForm}>
+				<div className={styles.logo}>
 					<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/No-logo.svg/800px-No-logo.svg.png'/>
 				</div>
-				<div className="input-group">
-					<label className="login-form__label">Username</label>
-					<input className="login-form__input" type="text" placeholder="Username" value={props.username} onChange={props.handleUsernameChanged} autoComplete="Username"/>
+				<div className={styles.inputGroup}>
+					<label className={styles.label}>Username</label>
+					<input className={styles.input} type="text" placeholder="Username" value={props.username} onChange={props.handleUsernameChanged} autoComplete="Username"/>
 				</div>
-				<div className="input-group">
-					<label className="login-form__label">Password</label>
-					<input className="login-form__input" type="password" placeholder="Password" value={props.password} onChange={props.handlePasswordChanged} autoComplete="Password"/>
+				<div className={styles.inputGroup}>
+					<label className={styles.label}>Password</label>
+					<input className={styles.input} type="password" placeholder="Password" value={props.password} onChange={props.handlePasswordChanged} autoComplete="Password"/>
 				</div>
-				<input className="login-form__submit" type="submit" value="Login" role="button"/>
+				<input className={styles.submit} type="submit" value="Login" role="button"/>
 			</form>
 		</div>
 	);
