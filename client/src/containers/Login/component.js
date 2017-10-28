@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import styles from './login.css';
+import home from '../../assets/img/svg/home.svg';
 
 export default function Dashboard(props) {
 	if(props.state.login.isAuthenticated) {
@@ -12,7 +13,7 @@ export default function Dashboard(props) {
 		<div className={styles.container}>
 			<form className={styles.loginForm} onSubmit={props.submitForm}>
 				<div className={styles.logo}>
-					<img src='https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/No-logo.svg/800px-No-logo.svg.png'/>
+					<img src={home}/>
 				</div>
 				<div className={styles.inputGroup}>
 					<label className={styles.label}>Username</label>

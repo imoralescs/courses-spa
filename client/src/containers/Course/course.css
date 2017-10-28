@@ -10,6 +10,7 @@
 
 .detailsTitle {
   padding: 0 0 1em;
+  text-transform: capitalize;
 }
 
 .detailsThumbnail {
@@ -43,4 +44,3 @@
   margin: 0;
   padding: 0;
 }
-

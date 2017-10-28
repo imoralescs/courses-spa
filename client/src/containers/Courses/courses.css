@@ -1,7 +1,7 @@
 .container {
   margin-bottom: 25px;
   border: 1px solid transparent;
-  padding: 30px 30px;
+  padding: 0;
   border-radius: 4px;
   background-color: #fff;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
@@ -17,6 +17,7 @@
 
 .itemDetails span {
   font-size: .7em;
+  font-style: italic;
 }
 
 .list {
@@ -28,7 +29,7 @@
 }
 
 .item {
-  width: calc(33.33% - 32px);
+  width: 100%;
   margin: 16px 16px;
   position: relative;
   display: flex;
@@ -61,7 +62,8 @@
 
 .itemTitle {
   font-size: 1.1em;
-  font-weight: 100;
+  font-weight: 700;
+  text-transform: capitalize;
   line-height: 1em;
   padding: 1em 0;
   display: block;
@@ -82,5 +84,16 @@
   left: 0;
   width: 120%;
   height: 120%;
-  transform: translateX(-4%) translateY(-6%);
+  transform: translateY(-6%);
+}
+
+/* Desktop */
+@media (min-width: 1081px) {
+  .container {
+    padding: 30px 30px;
+  }
+
+  .item {
+    width: calc(33.33% - 32px);
+  }
 }

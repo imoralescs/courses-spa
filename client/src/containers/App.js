@@ -5,7 +5,7 @@ import Dashboard from'./Dashboard';
 import styles from './app.css';
 
 const App = () => (
-	<Router>
+	<Router basename=''>
 		<div className={styles.container}>
 			<Switch>
 				<Route exact path="/" component={Login}/>

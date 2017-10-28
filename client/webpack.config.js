@@ -57,8 +57,19 @@ module.exports = {
         }
       },
       {
-        test: /\.scss$/, 
+        test: /\.scss$/,
         loaders: ["style-loader", "css-loader?sourceMap", "sass-loader?sourceMap&includePaths[]=" + bourbon + neat[0] + '&includePaths[]=' + neat[1]]
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'assets/img/[name].[ext]',
+            }
+          }
+        ]
       }
     ]
   },
